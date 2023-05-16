@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+{% if tutor %}
+    {{moment(tutor.create_date).calendar()}} by {{tutor.author.fname}} {{tutor.author.lname}} 
+    {% if tutor.modifydate %}
+        modified {{moment(tutor.modifydate).calendar()}}
+    {% endif %}
+    <br>
+    {% if tutor.author == current_user %}
+        <a data-toggle="tooltip" data-placement="top" title="Delete Tutor" href="/tutor/delete/{{tutor.id}}">
+            <img width="40" class="bottom-image" src="/static/delete.png">
+        </a>
+        <a data-toggle="tooltip" data-placement="top" title="Edit Tutor" href="/tutor/edit/{{tutor.id}}">
+            <img width="40" class="bottom-image" src="/static/edit.png">
+        </a>
+    {% endif %}
+
+    <h1 class="display-5">{{tutor.className}}</h1>
+    <p class="fs-3 text-break">
+        {% if tutor.author.image %}
+            <img width="120" class="img-thumbnail float-start me-2" src="data:image;base64,{{base64encode(blog.author.image.read())}}">
+        {% endif %}
+            Sport: {{tutor.sport}} <br>
+            {{tutor.xtraInfo}}
+
+    </p>
+    {% endif %}
+
+{% endblock %}

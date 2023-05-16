@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<div class>
+        <h1 class="display-1">Find a Tutor</h1>
+</div>
+
+<form method=post>
+    {{ form.hidden_tag() }}
+    <p>
+        {{ form.className.label }}
+        {{ form.className(size=1) }}
+        <!--List the errors for this field-->
+        {% for error in form.className.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+
+        {{form.sport.label}} 
+        {{form.sport() }}
+        {% for error in form.sport.errors %}
+        <span style="color: red;">[{{error}}] </span>
+        {% endfor %}
+
+        {{form.submit()}}
+    </p>
+
+</form>
+
+{% if tutors %}
+    {% for tutor in tutors %}
+        <div class="row border-bottom">
+            <div class="col-2">
+                {% if loop.index == 1 %}
+                <h3 class="display-5">Date</h3>
+                {% endif %}
+
+                <a href="/tutor/{{tutor.id}}">
+                    {{moment(tutor.create_date).calendar()}}
+                </a>
+            </div>
+            <div class="col-2">
+                {% if loop.index == 1 %}
+                <h3 class="display-5">User</h3>
+                {% endif %}
+                {{tutor.author.fname}} {{tutor.author.lname}}
+            </div>
+            <div class="col">
+                {% if loop.index == 1 %}
+                    <h3 class="display-5">Classes</h3>
+                {% endif %}
+                {{tutor.className}}
+            </div>
+            <div class="col">
+                {% if loop.index == 1 %}
+                    <h3 class="display-5">Sport</h3>
+                {% endif %}
+                {{tutor.sport}}
+            </div>
+            <div class="col">
+                {% if loop.index == 1 %}
+                    <h3 class="display-5">Extra Info</h3>
+                {% endif %}
+                {{tutor.xtraInfo}}
+            </div>
+        </div>
+    {% endfor %}
+{% else %}
+    <h1>No Tutors Available</h1>
+{% endif %}
+
+{% endblock %}

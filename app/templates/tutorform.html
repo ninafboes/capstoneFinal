@@ -1,34 +1,31 @@
+<!-- this is a generic form page.  Best way to make a new form page is to 
+copy this one and then edit it. -->
+
 {% extends "base.html" %}
 
 {% block body %}
-        <h1></h1>
+        <h1>Tutor Post</h1>
 
         <form method=post>
             {{ form.hidden_tag() }}
             <p>
-                {{ form.subject.label }} <br>
-                {{ form.subject(size=64) }}
+                {{ form.className.label }} <br>
+                {{ form.className(size=10) }}
                 <!--List the errors for this field-->
-                {% for error in form.subject.errors %}
+                {% for error in form.className.errors %}
                     <span style="color: red;">[{{ error }}]</span>
                 {% endfor %}
             </p>
+
             <p>
-                {{ form.content.label }} <br>
-                {{ form.content(cols=64, rows=10) }}
+                {{ form.xtraInfo.label }} <br>
+                {{ form.xtraInfo(cols=64, rows=5) }}
                 <!--List the errors for this field-->
-                {% for error in form.content.errors %}
+                {% for error in form.xtraInfo.errors %}
                     <span style="color: red;">[{{ error }}]</span>
                 {% endfor %}
             </p>
-            <p>
-                {{ form.tag.label }} <br>
-                {{ form.tag(size=64) }}
-                <!--List the errors for this field-->
-                {% for error in form.subject.errors %}
-                    <span style="color: red;">[{{ error }}]</span>
-                {% endfor %}
-            </p>
+
             <p>
                 {{form.sport.label}} <br>
                 {{form.sport() }} <br>
@@ -36,9 +33,11 @@
                 <span style="color: red;">[{{error}}] </span>
                 {% endfor %}
             </p>
+
             <p>
-                {{form.submit()}}
-            </p>
+            {{form.submit()}}
+            
+        </p>
         </form>
         
 {% endblock %}

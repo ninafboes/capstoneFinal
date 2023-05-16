@@ -99,6 +99,7 @@ def blogNew():
             content = form.content.data,
             tag = form.tag.data,
             author = current_user.id,
+            sport = form.sport.data,
             # This sets the modifydate to the current datetime.
             modify_date = dt.datetime.utcnow
         )
@@ -143,7 +144,8 @@ def blogEdit(blogID):
             subject = form.subject.data,
             content = form.content.data,
             tag = form.tag.data,
-            modify_date = dt.datetime.utcnow
+            modify_date = dt.datetime.utcnow,
+            sport = form.sport.data
         )
         # After updating the document, send the user to the updated blog using a redirect.
         return redirect(url_for('blog',blogID=blogID))
@@ -153,6 +155,7 @@ def blogEdit(blogID):
     form.subject.data = editBlog.subject
     form.content.data = editBlog.content
     form.tag.data = editBlog.tag
+    form.sport.data = editBlog.sport
 
 
     # Send the user to the blog form that is now filled out with the current information
@@ -189,7 +192,7 @@ def commentEdit(commentID):
     if current_user != editComment.author:
         flash("You can't edit a comment you didn't write.")
         return redirect(url_for('blog',blogID=editComment.blog.id))
-    blog = Bog.objects.get(id=editComment.blog.id)
+    blog = Blog.objects.get(id=editComment.blog.id)
     form = CommentForm()
     if form.validate_on_submit():
         editComment.update(
